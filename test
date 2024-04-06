@@ -1,0 +1,30 @@
+import random
+import time
+import folium
+
+# Function to simulate GPS coordinates of a moving train
+def simulate_gps_coordinates():
+    # Generate random latitude and longitude within a specific range (for demonstration)
+    latitude = random.uniform(40.0, 41.0)
+    longitude = random.uniform(-74.0, -73.0)
+    return latitude, longitude
+
+# Function to update train location and display it on a map
+def update_train_location(map_obj):
+    latitude, longitude = simulate_gps_coordinates()
+    print(f"Train Location: Latitude={latitude}, Longitude={longitude}")
+    
+    # Update map with the new train location
+    folium.Marker([latitude, longitude], popup='Train').add_to(map_obj)
+    map_obj.save('train_map.html')
+
+# Main function to track the train
+def track_train():
+    # Create a folium map object centered around a specific location
+    train_map = folium.Map(location=[40.7128, -74.0060], zoom_start=10)
+
+    while True:
+        update_train_location(train_map)
+        time.sleep(5)  # Update train location every 5 seconds
+
+if __name__ == "__main__":
